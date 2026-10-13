@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'HouseCleaningService',
+  name: "Gil's Ultimate Cleaning Services LLC",
+  url: 'https://www.gilsultimate.com/',
+  telephone: '+1-561-809-0137',
+  email: 'gil@gilsultimate.com',
+  areaServed: ['Broward County, FL', 'Palm Beach County, FL'],
+  image: 'https://www.gilsultimate.com/uploads/2025/04/CleanRoom.png',
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content="https://www.gilsultimate.com/uploads/2025/04/Gils-Logo-512.gif" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="brand"><img src="/uploads/2025/04/Gils-Logo-350.gif" alt="Gil's Ultimate Cleaning Services" width="175" height="auto" /></a>
+      <a class="header-cta" href="tel:+15618090137">(561) 809-0137</a>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <a href="/"><img src="/uploads/2025/04/Gils-Logo-350.gif" alt="Gil's Ultimate Cleaning Services" width="120" /></a>
+      <p>Experience the ultimate clean!</p>
+      <p class="small">&copy; {new Date().getFullYear()} Gil's Ultimate Cleaning Services LLC. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
